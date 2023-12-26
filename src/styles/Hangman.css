@@ -1,0 +1,15 @@
+/* Add these styles to your CSS file or React component */
+
+.hangman {
+  font-family: monospace; /* Ensure a monospaced font for consistent spacing */
+  white-space: pre; /* Preserve whitespace for correct rendering */
+  font-size: 20px; /* Adjust font size as needed */
+}
+
+/* Additional styles for better visibility and spacing */
+.hangman pre {
+  margin: 0;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}

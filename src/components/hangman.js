@@ -65,17 +65,55 @@ const Hangman = () => {
     }
   }, [guessedWord, remainingAttempts, selectedWord, gameStarted]);
 
+  const renderHangman = () => {
+    const incorrectCount = incorrectGuesses.length;
+    const maxHangmanParts = 6; // Maximum number of parts in the hangman representation
+
+    const hangmanParts = ["  0", " /|\\", " / \\", "|   |", "|   |"];
+
+    // Display the full hangman
+    const fullHangman = hangmanParts.concat(
+      Array.from(
+        { length: maxHangmanParts - hangmanParts.length },
+        () => "    "
+      )
+    );
+
+    // Build the stick vertically to the right side of the man
+    const verticalStick = Array.from({ length: incorrectCount }, () => "    |");
+
+    // Build the horizontal stick if needed
+    const horizontalStick = incorrectCount > 0 ? ["--------|"] : [];
+
+    // Combine the full hangman, vertical stick, and horizontal stick
+    const hangmanDisplay = fullHangman
+      .map((part, index) => {
+        return index < verticalStick.length
+          ? `${part}${verticalStick[index]}`
+          : part;
+      })
+      .concat(horizontalStick);
+
+    return (
+      <div className="hangman">
+        <pre>{hangmanDisplay.join("\n")}</pre>
+      </div>
+    );
+  };
+
   return (
     <div>
       <h1>Hangman Game</h1>
       {gameOver ? (
         <div>
+          {renderHangman()}
           <button onClick={restartGame}>Play Again</button>
         </div>
       ) : (
         <div>
           {gameStarted ? (
             <>
+              {renderHangman()}
               <p>Remaining Attempts: {remainingAttempts}</p>
               <p>Incorrect Guesses: {incorrectGuesses.join(", ")}</p>
               <p>{guessedWord.join(" ")}</p>
@@ -105,6 +143,22 @@ const Hangman = () => {
           )}
         </div>
       )}
+      <style>
+        {`
+          .hangman {
+            font-family: monospace;
+            white-space: pre;
+            font-size: 20px;
+          }
+
+          .hangman pre {
+            margin: 0;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+          }
+        `}
+      </style>
     </div>
   );
 };
