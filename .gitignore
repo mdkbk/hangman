@@ -10,7 +10,7 @@ node_modules
 /client/node_modules
 **/node_modules
 /server/node_modules
-jspm_packages
+
 
 # testing
 /coverage
@@ -43,7 +43,3 @@ next-env.d.ts
 
 
 
-package-lock.json
-package.json
-next.config.js
-jsconfig.json
